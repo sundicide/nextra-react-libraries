@@ -1,0 +1,59 @@
+import { GridExample } from "@/components/AgGrid/masterDetail"
+import AgGrid from "@/components/markdown-styles/AgGrid"
+import Iframe from "@/components/markdown-styles/Iframe"
+
+# Master Detail
+
+https://www.ag-grid.com/react-data-grid/master-detail/
+
+row에 sub grid를 넣고 싶을 때 쓴다.
+아래 예시를 보자
+
+<GridExample />
+
+각 row 마다 확장할 수 있는 `>` 아이콘이 있고 누르면 확장/축소가 가능하다.
+
+이를 만들기 위해서는 기본적으로 아래 설정들이 필요하다.
+
+```jsx
+const [columnDefs, setColumnDefs] = useState([
+  // expandable 아이콘을 추가해 줄 column에 'agGroupCellRenderer' 를 넣는다.
+  { field: 'name', cellRenderer: 'agGroupCellRenderer' },
+  ...
+]);
+
+
+// 확장 했을 때 보여줄 grid의 option을 넣는다.
+const detailCellRendererParams = useMemo(() => {
+  return {
+    detailGridOptions: {
+      columnDefs: [
+        { field: 'callId' },
+        { field: 'direction' },
+        { field: 'number', minWidth: 150 },
+        { field: 'duration', valueFormatter: "x.toLocaleString() + 's'" },
+        { field: 'switchCode', minWidth: 150 },
+      ],
+      defaultColDef: {
+        flex: 1,
+      },
+    },
+    // getDetailRowData는 확장 했을 때 어떤 데이터를 보여줘야 할지 선언한다.
+    getDetailRowData: (params) => {
+      params.successCallback(params.data.callRecords);
+    },
+  };
+}, []);
+
+<AgGridReact
+  ...
+  masterDetail={true}
+  detailCellRendererParams={detailCellRendererParams}
+/>
+```
+
+detail이 1단이 아닌 여러 단이 필요할 경우 아래의 링크를 참조해서 설정 가능하다.  간단하게 요약하면 `masterDetail`과 `detailCellRendererParams`를 여러번 설정하면 된다.
+
+https://www.ag-grid.com/react-data-grid/master-detail-nesting/
+
+<Iframe src="https://www.ag-grid.com/react-data-grid/master-detail-nesting/#example-nesting" />
