@@ -1,7 +1,7 @@
 export default {
-  logo: <span>My Nextra Documentation</span>,
-  project: {
-    link: 'https://github.com/sundicide/nextra-react-libraries',
-  },
-  // ...
-}
+	logo: <span>sundicide Nextra Documentation</span>,
+	project: {
+		link: "https://github.com/sundicide/nextra-react-libraries",
+	},
+	// ...
+};
