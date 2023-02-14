@@ -7,7 +7,8 @@ import Iframe from "@/components/markdown-styles/Iframe"
 https://www.ag-grid.com/react-data-grid/master-detail/
 
 row에 sub grid를 넣고 싶을 때 쓴다.
-아래 예시를 보자
+
+## Basic
 
 <GridExample />
 
@@ -52,8 +53,21 @@ const detailCellRendererParams = useMemo(() => {
 />
 ```
 
+## Etc
+
+### nesting
 detail이 1단이 아닌 여러 단이 필요할 경우 아래의 링크를 참조해서 설정 가능하다.  간단하게 요약하면 `masterDetail`과 `detailCellRendererParams`를 여러번 설정하면 된다.
 
 https://www.ag-grid.com/react-data-grid/master-detail-nesting/
 
 <Iframe src="https://www.ag-grid.com/react-data-grid/master-detail-nesting/#example-nesting" />
+
+### isRowMaster
+```jsx
+const isRowMaster = params => params.sub_datas && params.sub_datas.length > 0
+
+<AgGridReact
+  ...
+  isRowMaster={isRowMaster}
+/>
+```

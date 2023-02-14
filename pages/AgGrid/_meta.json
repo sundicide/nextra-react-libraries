@@ -1,5 +1,6 @@
 {
   "index": "00. Introduction",
   "basic": "01. Basic",
-  "masterDetail": "02. Master Detail"
+  "masterDetail": "02. Master Detail",
+  "serverSideData": "ServerSide"
 }

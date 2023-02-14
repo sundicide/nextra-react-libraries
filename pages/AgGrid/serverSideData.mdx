@@ -1,0 +1,48 @@
+import { GridExample } from "@/components/AgGrid/masterDetail"
+import AgGrid from "@/components/markdown-styles/AgGrid"
+import Iframe from "@/components/markdown-styles/Iframe"
+
+# Server Side Data
+
+https://www.ag-grid.com/react-data-grid/row-models/
+
+server side data를 사용하고자 할 때 쓴다.
+
+## Basic
+
+https://www.ag-grid.com/react-data-grid/server-side-model-datasource/
+
+위의 공식 홈페이지에서 보면 조금 복잡하게 보이지만 아래와 같이 간단하게 구현 가능하다.
+
+```jsx
+const createDatasource = () => {
+  return {
+    // called by the grid when more rows are required
+    getRows: (params) => {
+      // get data for request from server
+      fetch("/api/job")
+        .then((resp) => resp.json())
+        .then((data) => {
+          params.success({
+            rowData: data,
+            rowCount: data.length,
+          });
+        })
+        .catch((error) => {
+          params.fail();
+        });
+    },
+  };
+};
+
+const onGridReady = useCallback((params) => {
+  const datasource = createDatasource();
+  params.api.setServerSideDatasource(datasource);
+}, []);
+
+<AgGridReact
+  ...
+  rowModelType='serverSide'
+  onGridReady={onGridReady}
+/>
+```
