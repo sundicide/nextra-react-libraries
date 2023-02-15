@@ -2,5 +2,6 @@
   "index": "00. Introduction",
   "basic": "01. Basic",
   "masterDetail": "02. Master Detail",
-  "serverSideData": "ServerSide"
+  "row-selection": "Row Selection",
+  "server-side-data": "Server Side Data"
 }
