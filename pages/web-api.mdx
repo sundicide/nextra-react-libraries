@@ -1,5 +1,18 @@
 # Web API
 
+## Crypto
+
+https://developer.mozilla.org/en-US/docs/Web/API/Crypto
+
+basic cryptography를 이용해 랜덤한 값을 얻을 수 있는 API
+
+```js
+/* Assuming that self.crypto.randomUUID() is available */
+
+let uuid = self.crypto.randomUUID();
+console.log(uuid); // for example "36b8f84d-df4e-4d49-b662-bcde71a8764f"
+```
+
 ## Intl
 
 https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Intl
@@ -39,13 +52,40 @@ const koCurrency = new Intl.NumberFormat('ko-KR', {style: 'currency', currency: 
 const enCurrency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(money) // '$123,456,789.00'
 ```
 
-{/* // export const options = () => ({
-//   weekday: 'long',
-//   year: 'numeric',
-//   month: 'long',
-//   day: 'numeric'
-// })
-// export const dd = () => new Intl.DateTimeFormat('ko-KR', options()).format(new Date("2023-02-16"))
-// export const ds = () => console.log({dd})
+## Performance
 
-// <p>{dd()}</p> */}
+현재 페이지의 performance와 관련된 정보를 제공하는 Web API이다.
+
+https://developer.mozilla.org/en-US/docs/Web/API/Performance
+
+
+```js
+const t0 = performance.now();
+
+doSomething();
+
+const t1 = performance.now();
+console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
+```
+
+## Page Visibility
+
+https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
+
+사용자에게 document가 보여지고 있는지 아닌지를 판별할 수 있는 API를 제공
+
+```js
+const audio = document.querySelector("audio");
+
+// Handle page visibility change:
+// - If the page is hidden, pause the video
+// - If the page is shown, play the video
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    audio.pause();
+  } else {
+    audio.play();
+  }
+});
+
+```
