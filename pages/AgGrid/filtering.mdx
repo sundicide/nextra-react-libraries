@@ -1,0 +1,52 @@
+import AgGrid from "@/components/markdown-styles/AgGrid"
+
+# Filtering
+
+https://www.ag-grid.com/react-data-grid/filtering-overview/
+
+## Basic
+
+filter를 켜는 방법은 `defaultColDef`를 이용해서 모든 column에 대해 default로 설정하거나, 개별 설정할 수 있다.
+
+```jsx
+const defaultColDef = {
+  filter: true, // 1. 모든 column에 default로 false를 설정하거나
+}
+
+const columnDefs = [
+  {
+    field: "id",
+    filter: false, // 2. 이와 같이 개별 column에서 설정할 수 있다.
+  }
+]
+
+<AgGridReact
+  // ...
+  columnDefs={columnDefs}
+  defaultColDef={defaultColDef}
+>
+```
+
+enterprise버전에서는 기본으로 아래와 같이 생긴 `Set Filter`가 적용된다.
+
+![Set Filter](https://www.ag-grid.com/static/d800449dcc3c49fcb00d7487a35f3b96/a11ab/set-filter.png)
+
+
+## Filter Params
+
+https://www.ag-grid.com/react-data-grid/filter-text/
+
+filter에 조건을 추가할 수 있다.
+
+```jsx
+const columnDefs = [
+  {
+    field: "job_id",
+    filter: true,
+    filterParams: {
+      filterOptions: ["equals"], // Dropdown 메뉴에서 선택할 수 있는 조건을 지정할 수 있다.
+      maxNumConditions: 1, // 설정할 수 있는 조건 개수이며, 기본은 2 이다. 그리고 이 옵션은 29.2.0 버전 이후부터 사용 가능하다.
+    }
+  }
+]
+```
