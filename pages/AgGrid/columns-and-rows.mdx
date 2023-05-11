@@ -28,6 +28,32 @@ const columns = [
 ]
 ```
 
+### columnRenderer
+컬럼을 기본 텍스트가 아닌 다른 방식으로 표현하고 싶을 때 쓸 수 있는 속성이다.
+
+```jsx
+const columns = [
+  {
+    field: "A",
+    cellRenderer: (params: any) => {
+      return (
+        <div>
+          {params.data.family.map((d) => (
+            <Chip
+              key={d.key}
+              color="primary"
+              size="L"
+              text={d}
+              variant="filled"
+            />
+          ))}
+        </div>
+      );
+    },
+  }
+]
+```
+
 
 ## Rows
 
