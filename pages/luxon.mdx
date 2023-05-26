@@ -4,21 +4,34 @@ https://moment.github.io/luxon/#/?id=luxon
 
 Date 라이브러리
 
-
-
 ```jsx
-import { DateTime } from "luxon"
+import { DateTime } from "luxon";
 
-const date = DateTime.now()
+const date = DateTime.now();
 
 /**
  * Formatting
  * https://moment.github.io/luxon/#/formatting
  */
-const month   = date.toFormat("LL") // 08 -> 월
-const date    = date.toFormat("dd") // 06 -> 일
-const hour    = date.toFormat("HH") // 02 -> 시
-const minute  = date.toFormat("mm") // 02 -> 분
-const second  = date.toFormat("ss") // 03 -> 초
+const year = date.toFormat("yyyy"); // 2023 -> 년
+const month = date.toFormat("LL"); // 08 -> 월
+const date = date.toFormat("dd"); // 06 -> 일
+const hour = date.toFormat("HH"); // 02 -> 시
+const minute = date.toFormat("mm"); // 02 -> 분
+const second = date.toFormat("ss"); // 03 -> 초
 ```
 
+## from
+
+```js
+const dateStr = "2023-05-26 15:13:22";
+const dateTime = DateTime.fromFormat(dateStr, "yyyy-LL-dd HH:mm:ss");
+```
+
+## dif
+
+```js
+const startTime = "2023-05-26 15:13:22";
+const diffObj = startTime.diffNow("days"); // { days: `오늘과의 날짜 차이 숫자` }
+const diffDays = diffObj.as("days"); // `오늘과의 날짜 차이 숫자`
+```
