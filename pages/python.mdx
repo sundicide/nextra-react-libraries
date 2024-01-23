@@ -1,0 +1,191 @@
+# Introduction
+
+About Python
+
+## Shell
+
+```shell
+pip list
+pip freeze # only show install with `pip install`
+
+pip install matplotlib==3.1.2
+
+pip uninstall matplotlib
+```
+
+## Python
+
+```python
+print(r'C:\Windows\System32\notepad.exe') # raw string
+
+print('\"It\'s not that I\', so smart;"') # with escape character
+print('''"It's not that I'm so smart;"''')
+print(''' Hello
+  World
+''')
+
+word = 'Python'
+len(word) # 6
+
+word[-6] # 'P'
+word[-1] # 'n'
+
+word[0:6] # 'Python'
+word[0:]  # 'Python'
+word[:-1] # 'Pytho'
+
+"""
+Math
+"""
+2 ** 8    # 32
+pow(2, 8) # 32
+
+x += 1 # Ok
+x++    # Error
+++x    # Error
+
+'''
+Condition
+'''
+if a == 1:
+  print("1")
+elif a > 4:
+  print("Bigger than 4")
+else:
+  print(a)
+
+for i in [1,2,3]:
+  print(i)
+
+for i in range(1, 7, 2): # start1, until 7, by 2
+  print(i) # 1 \n 3 \n 5
+
+CITIES = ['Rome', 'Seoul', 'New York']
+for idx, symbol in enumerate(CITIES, 1): # enumerate(data, startIndex)
+  print(idx, symbol) # 1 Rome \n 2 Seoul \n 3 New York
+
+
+i = 1
+while i < 7:
+  print(i)
+  if i > 5:
+    break
+  i += 2
+
+# `continue` or `break` can be use with `for`, `while`
+
+
+try:
+  1/0
+except Exception as e:
+  print('Exception occured : ', str(e)) # Exception occured : division by zero
+
+
+'''
+List
+'''
+arr = [1, 2, 'three']
+
+arr = [[1,2], [3,4]]
+
+arr + arr # [[1,2], [3,4], [1,2], [3,4]]
+
+arr * 3 # [[1,2], [3,4], [1,2], [3,4], [1,2,], [3,4]]
+
+type(arr) # <class 'list'>
+
+splitArr = 'This is a sentence'.split()
+print(splitArr) # ['This', 'is', 'a', 'sentence']
+' '.join(splitArr) # This is a sentence
+
+numArr = [1,5,4,2]
+numArr.sort()
+numArr # [1,2,4,5]
+
+numArr = [1,5,4,2]
+sorted(numArr) # [1,2,4,5] / deep copy array & do sort
+numArr # [1,5,4,2]
+
+numArr.append([3, 4])
+numArr # [1,5,4,2,[3,4]]
+
+numArr = [1,5,4,2]
+numArr.extend([3,4])
+numArr # [1,5,4,2,3,4]
+
+'''
+replace
+'''
+str = 'Hello,World'
+str.replace(',', ' ') # 'Hello World'
+
+
+'''
+format
+'''
+format(1234567890, ',') # '1,234,567,890'
+
+
+arr = [1,2,3]
+newArr = arr[:] # deep copy
+newArr # [1,2,3]
+newArr[-1] = 4
+newArr # [1,2,4]
+
+
+numArr = [1,2,3,4,5]
+resultArr = []
+fox x in numArr:
+  resultArr.append(x ** 2)
+resultArr # [1, 4, 9, 16, 25]
+
+squares = [x ** 2 for x in numArr]
+even_squares = [x ** 2 for x in numArr if x % 2 == 0]
+
+'''
+Tuple
+'''
+tup = ('a', 'b', [1,2,3], abs, max)
+
+tup[2] # [1,2,3]
+
+tup[3](-100) # 100
+
+tup[4](tup[2]) # 3
+
+tup[0] = 'A' # TypeError: 'tuple' object does not support item assignment
+
+
+'''
+Dictionary
+'''
+dict = { 'a': 1 }
+
+dict[1] # KeyError: 1
+
+dict['a'] # 1
+
+dict['b'] = 2
+dict # { 'a': 1, 'b': 2 }
+
+len(dict) # 2
+
+for x in dict:
+  # All methods below shows same result
+  print('%s : %s' % (x, dict[x])) # first way
+  print('{} : {}'.format(x, dict[x])) # second way
+  print(f'{x} : {dict[x]}') # third way. python3.6+
+# a : 1
+# b : 2
+
+
+'''
+Set
+'''
+s = { 'H', 'E', 'L', 'L', 'O' } # not allow dup
+s # { 'H', 'E', 'L', 'O' }
+s # { 'E', 'L', 'H', 'O' } / Order is not preserved
+
+if 'E' in s:
+  print('E exists in ', s) # 'E exists in { 'H', 'E', 'L', 'O' }
+```
