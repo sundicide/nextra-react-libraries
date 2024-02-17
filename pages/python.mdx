@@ -84,6 +84,10 @@ except Exception as e:
 '''
 List
 '''
+
+arr = [] # make new Arr
+arr = list() # make new Arr
+
 arr = [1, 2, 'three']
 
 arr = [[1,2], [3,4]]
@@ -145,6 +149,10 @@ even_squares = [x ** 2 for x in numArr if x % 2 == 0]
 '''
 Tuple
 '''
+
+tup = () # make new tuple
+tup = tuple()  # make new tuple
+
 tup = ('a', 'b', [1,2,3], abs, max)
 
 tup[2] # [1,2,3]
@@ -157,8 +165,12 @@ tup[0] = 'A' # TypeError: 'tuple' object does not support item assignment
 
 
 '''
-Dictionary
+Dictionary(dict)
 '''
+
+dict = {} # make new dict
+dict = dict() # make new dict
+
 dict = { 'a': 1 }
 
 dict[1] # KeyError: 1
@@ -182,10 +194,75 @@ for x in dict:
 '''
 Set
 '''
+
+s = set() # make new Set
+
 s = { 'H', 'E', 'L', 'L', 'O' } # not allow dup
 s # { 'H', 'E', 'L', 'O' }
-s # { 'E', 'L', 'H', 'O' } / Order is not preserved
+s # { 'E', 'L', 'H', 'O' } # Order is not preserved
 
 if 'E' in s:
   print('E exists in ', s) # 'E exists in { 'H', 'E', 'L', 'O' }
+
+setA = { 1, 2, 3, 4, 5 }
+setB = { 3, 4, 5, 6, 7 }
+
+setA & setB # setA.intersection(setB)
+# {3, 4, 5}
+
+setA | setB # setA.union(setB)
+# { 1, 2, 3, 4, 5, 6, 7 }
+
+setA - setB # setA.difference(setB)
+# { 1, 2 }
+
+setB - setA # setB.difference(setA)
+# { 6, 7 }
+
+arr = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5]
+list(set(arr)) # [1, 2, 3, 4, 5]
+```
+
+## timeit
+measuring performance
+
+`timeit(test function, setup=test setup, number=iteration count)`
+
+```
+import timeit
+
+iteration_test = """
+for i in itr :
+  pass
+"""
+
+timeit.timeit(iteration_test, setup='itr = list(range(10000))', number=1000)
+# 0.054775722994236276
+
+timeit.timeit(iteration_test, setup='itr = tuple(range(10000))', number=1000)
+# 0.07723709600395523
+
+timeit.timeit(iteration_test, setup='itr = set(range(10000))', number=1000)
+# 0.07349735200114083
+
+
+"""
+Search Test
+"""
+
+search_test = """
+import random
+x = random.randint(0, len(itr)-1)
+if x in itr:
+  pass
+"""
+
+timeit.timeit(search_test, setup='itr = list(range(10000))', number=1000)
+# 0.025486715996521525
+
+timeit.timeit(search_test, setup='itr = tuple(range(10000))', number=1000)
+# 0.023025447997497395
+
+timeit.timeit(search_test, setup='itr = set(range(10000))', number=1000)
+# 0.0006405339954653755
 ```
