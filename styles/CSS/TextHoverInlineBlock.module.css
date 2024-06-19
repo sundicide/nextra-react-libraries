@@ -1,0 +1,55 @@
+.root {
+  position: relative;
+  display: inline-block;
+  transition: box-shadow 100ms ease 0s;
+}
+
+.root:hover {
+  box-shadow: initial;
+}
+
+.root:hover::after {
+  transform: translateY(-0.25em);
+  opacity: 0;
+  transition: transform 200ms ease 0s, opacity 350ms ease 0s;;
+}
+.root:hover span:first-child {
+  clip-path: polygon(0% 0%, 100%, 0%, 100% 0%, 0% 0%);
+}
+
+.root:hover span:last-child {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.root::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: -2px;
+  right: -2px;
+  border-radius: 100px;
+  background-color: deeppink;
+  height: 2px;
+}
+
+.root span {
+  display: inline-block;
+}
+
+.root span:first-child {
+  z-index: 1;
+  color: inherit;
+  position: relative;
+  transition: clip-path 600ms ease 0s;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.root span:last-child {
+  z-index: 2;
+  color: deeppink;
+  position: absolute;
+  left: 0;
+  clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+  transition: clip-path 600ms ease 0s;
+  user-select: none;
+}
