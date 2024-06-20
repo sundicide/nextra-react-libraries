@@ -9,6 +9,11 @@
     "lint": "next lint",
     "deploy:pm2": "pm2 start npm --name nextra-react-libraries -- run dev"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundicide/nextra-react-libraries.git"
+  },
+  "author": "sundicide",
   "dependencies": {
     "@next/font": "13.1.6",
     "@vercel/analytics": "^1.0.2",
