@@ -1,20 +1,3 @@
 {
-  "index": "Introduction",
-  "how-to-setting": "How To setting",
-  "bookmark": "Bookmark",
-  "Books": "Books",
-  "AgGrid": "Ag-Grid",
-  "luxon": "Luxon",
-  "gsap": "gsap",
-  "web-api": "Web API",
-  "skc": "skc",
-  "fluentd": "fluentd",
-  "node": "Node",
-  "pm2": "PM2",
-  "prisma": "Prisma",
-  "python": "Python",
-  "tmux": "Tmux",
-  "vue2-google-maps": "Vue2 Google Maps",
-  "FullStack-D3-MasterClass": "FullStack D3 MasterClass",
-  "CSS": "CSS"
+  "index": "Introduction"
 }
