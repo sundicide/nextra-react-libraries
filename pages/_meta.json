@@ -9,5 +9,12 @@
   "web-api": "Web API",
   "skc": "skc",
   "CascadingStyleSheets": "CSS",
-  "fluentd": "fluentd"
+  "fluentd": "fluentd",
+  "node": "Node",
+  "pm2": "PM2",
+  "prisma": "Prisma",
+  "python": "Python",
+  "tmux": "Tmux",
+  "vue2-google-maps": "Vue2 Google Maps",
+  "FullStack-D3-MasterClass": "FullStack D3 MasterClass"
 }
