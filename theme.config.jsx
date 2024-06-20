@@ -3,7 +3,8 @@ export default {
   project: {
     link: "https://github.com/sundicide/nextra-react-libraries",
   },
-  docsRepositoryBase: "https://github.com/sundicide/nextra-react-libraries",
+  docsRepositoryBase:
+    "https://github.com/sundicide/nextra-react-libraries/edit/main",
   footer: {
     text: "sundicide Nextra Docs",
   },
