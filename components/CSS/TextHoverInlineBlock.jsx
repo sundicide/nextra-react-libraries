@@ -1,4 +1,4 @@
-import styles from "@/styles/CascadingStyleSheets/TextHoverInlineBlock.module.css";
+import styles from "@/styles/CSS/TextHoverInlineBlock.module.css";
 
 export default function TextHoverInlineBlock() {
   return (
