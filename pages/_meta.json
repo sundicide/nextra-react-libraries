@@ -8,5 +8,6 @@
   "gsap": "gsap",
   "web-api": "Web API",
   "skc": "skc",
-  "CSS": "CSS"
+  "CSS": "CSS",
+  "fluentd": "fluentd"
 }
