@@ -8,7 +8,6 @@
   "gsap": "gsap",
   "web-api": "Web API",
   "skc": "skc",
-  "CascadingStyleSheets": "CSS",
   "fluentd": "fluentd",
   "node": "Node",
   "pm2": "PM2",
@@ -16,5 +15,6 @@
   "python": "Python",
   "tmux": "Tmux",
   "vue2-google-maps": "Vue2 Google Maps",
-  "FullStack-D3-MasterClass": "FullStack D3 MasterClass"
+  "FullStack-D3-MasterClass": "FullStack D3 MasterClass",
+  "CascadingStyleSheets": "CSS"
 }
