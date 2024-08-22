@@ -1,18 +1,27 @@
 # Tmux
 
+https://github.com/tmux/tmux/wiki
+
 ## On Tmux
 ```bash
 C^b + $ # rename session
-C^b + % # split pane
+C^b + % # split pane vertically
+C^b + " # split pane horizontally
 C^b + d # detach
 C^b + s # list all session
+  - x: kill sesseion
+  - q: quit list
 C^b + -> / <-  # move cursor to next panel
+C^b + [ # scroll mode
+C^b + PageUp # scroll mode with page up
 ```
 
 ## Out of Tmux
 
 ```bash
+tmux ls 
 tmux a # attach last session
+tmux a -t [id/name]
 ```
 
 ## Settings
