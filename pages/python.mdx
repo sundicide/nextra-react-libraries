@@ -266,3 +266,40 @@ timeit.timeit(search_test, setup='itr = tuple(range(10000))', number=1000)
 timeit.timeit(search_test, setup='itr = set(range(10000))', number=1000)
 # 0.0006405339954653755
 ```
+
+## pandas
+
+### df merge
+
+```python
+import pandas as pd
+
+# a_df 생성
+a_df = pd.DataFrame({
+    'a': ['a', 'b'],
+    'b': [1, 2]
+})
+
+# b_df 생성
+b_df = pd.DataFrame({
+    'a': ['a', 'b'],
+    'c': ['@@', '##'],
+    'd': [10, 20],
+    'e': [30, 40],
+    'f': [50, 60],
+    # ...
+})
+
+# 원하는 컬럼만 선택하여 병합
+selected_columns = ['a', 'c', 'e']  # 'a'는 조인 키로 필요, 'c'와 'e'는 원하는 컬럼
+result_df = pd.merge(a_df, b_df[selected_columns], on='a', how='inner')
+
+# 결과 확인
+print(result_df)
+
+"""
+   a  b   c   e
+0  a  1  @@  30
+1  b  2  ##  40
+"""
+```
