@@ -228,7 +228,7 @@ measuring performance
 
 `timeit(test function, setup=test setup, number=iteration count)`
 
-```
+```python
 import timeit
 
 iteration_test = """
@@ -302,4 +302,144 @@ print(result_df)
 0  a  1  @@  30
 1  b  2  ##  40
 """
+```
+
+### pivot table
+
+```python
+pd.pivot_table(
+    data,              # 피벗할 데이터프레임
+    values,           # 계산할 값이 있는 컬럼
+    index,            # 행 인덱스가 될 컬럼
+    columns,          # 열 인덱스가 될 컬럼
+    aggfunc='mean',   # 집계 함수 (mean, sum, count 등)
+    fill_value=None,  # NaN 대체값
+    margins=False     # 총계 표시 여부
+)
+```
+
+```python
+import pandas as pd
+import numpy as np
+
+# 샘플 데이터 생성
+df = pd.DataFrame({
+    '날짜': ['2024-01', '2024-01', '2024-02', '2024-02'],
+    '지역': ['서울', '부산', '서울', '부산'],
+    '판매량': [100, 150, 200, 250],
+    '수익': [1000, 1500, 2000, 2500]
+})
+
+# 1. 기본 피벗테이블
+result1 = pd.pivot_table(
+    df,
+    values='판매량',
+    index='날짜',
+    columns='지역'
+)
+print("기본 피벗테이블:")
+print(result1)
+# 출력:
+#         지역    서울    부산
+# 날짜                    
+# 2024-01  100   150
+# 2024-02  200   250
+
+# 2. 여러 값과 함수 사용
+result2 = pd.pivot_table(
+    df,
+    values=['판매량', '수익'],
+    index='날짜',
+    columns='지역',
+    aggfunc={
+        '판매량': 'sum',
+        '수익': ['mean', 'sum']
+    }
+)
+print("\n여러 값과 함수 사용:")
+print(result2)
+# 출력:
+#              판매량      수익                    
+# 지역          부산    서울   mean         sum     
+#                          부산    서울    부산    서울
+# 날짜                                                
+# 2024-01     150    100  1500  1000   1500   1000
+# 2024-02     250    200  2500  2000   2500   2000
+```
+
+
+## matplotlib
+
+1. Simple Line Graph
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+
+plt.plot(x, y)
+plt.title('Sin Graph')
+plt.xlabel('X axis')
+plt.ylabel('Y axis')
+plt.show()
+```
+
+2. MultiLine Graph
+
+```python
+x = np.linspace(0, 10, 100)
+y1 = np.sin(x)
+y2 = np.cos(x)
+
+plt.plot(x, y1, label='sin(x)')
+plt.plot(x, y2, label='cos(x)')
+plt.title('Sin and Cos Graphs')
+plt.xlabel('X axis')
+plt.ylabel('Y axis')
+plt.legend()
+plt.show()
+```
+
+## dataframe
+
+```python
+import pandas as pd
+
+# 샘플 데이터 생성
+df = pd.DataFrame({
+    '값': [100, 200, 300]
+}, index=['2024-01', '2024-02', '2024-03'])
+
+print("원본 데이터:")
+print(df)
+# 출력:
+#           값
+# 2024-01  100
+# 2024-02  200
+# 2024-03  300
+
+# names 파라미터를 사용하여 reset_index
+df.reset_index(names=['date'], inplace=True)
+print("\n인덱스 재설정 후:")
+print(df)
+# 출력:
+#       date    값
+# 0  2024-01  100
+# 1  2024-02  200
+# 2  2024-03  300
+
+# 비교: 일반적인 reset_index
+df2 = pd.DataFrame({
+    '값': [100, 200, 300]
+}, index=['2024-01', '2024-02', '2024-03'])
+df2.reset_index(inplace=True)
+print("\n일반 reset_index 결과:")
+print(df2)
+# 출력:
+#      index    값
+# 0  2024-01  100
+# 1  2024-02  200
+# 2  2024-03  300
 ```
