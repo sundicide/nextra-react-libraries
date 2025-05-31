@@ -1,0 +1,91 @@
+# Web API
+
+## Crypto
+
+https://developer.mozilla.org/en-US/docs/Web/API/Crypto
+
+basic cryptography를 이용해 랜덤한 값을 얻을 수 있는 API
+
+```js
+/* Assuming that self.crypto.randomUUID() is available */
+
+let uuid = self.crypto.randomUUID();
+console.log(uuid); // for example "36b8f84d-df4e-4d49-b662-bcde71a8764f"
+```
+
+## Intl
+
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Intl
+
+각 언어에 맞는 문자비교, 숫자, 시간, 날짜비교를 제공하는 ECMAScript Internationalization API
+
+```js
+const currentDateKR =  new Intl.DateTimeFormat('ko-KR').format(new Date()) // 2023.2.16
+const currentDateEN =  new Intl.DateTimeFormat('en-US').format(new Date()) // 2/16/2023
+
+const options = {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+}
+
+// with options
+const currentDateKRWithOptions =  new Intl.DateTimeFormat('ko-KR', options).format(new Date()) // 2023년 2월 16일 목요일
+const currentDateENWithOptions =  new Intl.DateTimeFormat('en-US', options).format(new Date()) // Thursday, February 16, 2023
+```
+
+export const options = () => ({
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+})
+
+export const currentDate = () => new Intl.DateTimeFormat('en-US', options()).format(new Date())
+
+<p>{currentDate()}</p>
+
+```js
+const money = 123456789
+const koCurrency = new Intl.NumberFormat('ko-KR', {style: 'currency', currency: 'KRW'}).format(money) // '₩123,456,789'
+const enCurrency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(money) // '$123,456,789.00'
+```
+
+## Performance
+
+현재 페이지의 performance와 관련된 정보를 제공하는 Web API이다.
+
+https://developer.mozilla.org/en-US/docs/Web/API/Performance
+
+
+```js
+const t0 = performance.now();
+
+doSomething();
+
+const t1 = performance.now();
+console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
+```
+
+## Page Visibility
+
+https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
+
+사용자에게 document가 보여지고 있는지 아닌지를 판별할 수 있는 API를 제공
+
+```js
+const audio = document.querySelector("audio");
+
+// Handle page visibility change:
+// - If the page is hidden, pause the video
+// - If the page is shown, play the video
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    audio.pause();
+  } else {
+    audio.play();
+  }
+});
+
+```

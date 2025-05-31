@@ -1,0 +1,13 @@
+# Snippets
+
+## coursera on/off subtitle
+
+```js
+var targets = document.querySelectorAll("li[role='presentation']")
+
+function offSubtitle() { targets[0].firstChild.click() }
+function onKoreanSubtitle() { targets[targets.length-1].firstChild.click() }
+
+// offSubtitle()
+onKoreanSubtitle()
+```

@@ -1,0 +1,569 @@
+# Python
+
+About Python
+
+## Shell
+
+```shell
+pip list
+pip freeze # only show install with `pip install`
+
+pip install matplotlib==3.1.2
+
+pip uninstall matplotlib
+```
+
+## Python
+
+```python
+print(r'C:\Windows\System32\notepad.exe') # raw string
+
+print('\"It\'s not that I\', so smart;"') # with escape character
+print('''"It's not that I'm so smart;"''')
+print(''' Hello
+  World
+''')
+
+word = 'Python'
+len(word) # 6
+
+word[-6] # 'P'
+word[-1] # 'n'
+
+word[0:6] # 'Python'
+word[0:]  # 'Python'
+word[:-1] # 'Pytho'
+
+"""
+Math
+"""
+2 ** 8    # 32
+pow(2, 8) # 32
+
+x += 1 # Ok
+x++    # Error
+++x    # Error
+
+'''
+Condition
+'''
+if a == 1:
+  print("1")
+elif a > 4:
+  print("Bigger than 4")
+else:
+  print(a)
+
+for i in [1,2,3]:
+  print(i)
+
+for i in range(1, 7, 2): # start1, until 7, by 2
+  print(i) # 1 \n 3 \n 5
+
+CITIES = ['Rome', 'Seoul', 'New York']
+for idx, symbol in enumerate(CITIES, 1): # enumerate(data, startIndex)
+  print(idx, symbol) # 1 Rome \n 2 Seoul \n 3 New York
+
+
+i = 1
+while i < 7:
+  print(i)
+  if i > 5:
+    break
+  i += 2
+
+# `continue` or `break` can be use with `for`, `while`
+
+
+try:
+  1/0
+except Exception as e:
+  print('Exception occured : ', str(e)) # Exception occured : division by zero
+
+
+'''
+List
+'''
+
+arr = [] # make new Arr
+arr = list() # make new Arr
+
+arr = [1, 2, 'three']
+
+arr = [[1,2], [3,4]]
+
+arr + arr # [[1,2], [3,4], [1,2], [3,4]]
+
+arr * 3 # [[1,2], [3,4], [1,2], [3,4], [1,2,], [3,4]]
+
+type(arr) # <class 'list'>
+
+splitArr = 'This is a sentence'.split()
+print(splitArr) # ['This', 'is', 'a', 'sentence']
+' '.join(splitArr) # This is a sentence
+
+numArr = [1,5,4,2]
+numArr.sort()
+numArr # [1,2,4,5]
+
+numArr = [1,5,4,2]
+sorted(numArr) # [1,2,4,5] / deep copy array & do sort
+numArr # [1,5,4,2]
+
+numArr.append([3, 4])
+numArr # [1,5,4,2,[3,4]]
+
+numArr = [1,5,4,2]
+numArr.extend([3,4])
+numArr # [1,5,4,2,3,4]
+
+'''
+replace
+'''
+str = 'Hello,World'
+str.replace(',', ' ') # 'Hello World'
+
+
+'''
+format
+'''
+format(1234567890, ',') # '1,234,567,890'
+
+
+arr = [1,2,3]
+newArr = arr[:] # deep copy
+newArr # [1,2,3]
+newArr[-1] = 4
+newArr # [1,2,4]
+
+
+numArr = [1,2,3,4,5]
+resultArr = []
+fox x in numArr:
+  resultArr.append(x ** 2)
+resultArr # [1, 4, 9, 16, 25]
+
+squares = [x ** 2 for x in numArr]
+even_squares = [x ** 2 for x in numArr if x % 2 == 0]
+
+'''
+Tuple
+'''
+
+tup = () # make new tuple
+tup = tuple()  # make new tuple
+
+tup = ('a', 'b', [1,2,3], abs, max)
+
+tup[2] # [1,2,3]
+
+tup[3](-100) # 100
+
+tup[4](tup[2]) # 3
+
+tup[0] = 'A' # TypeError: 'tuple' object does not support item assignment
+
+
+'''
+Dictionary(dict)
+'''
+
+dict = {} # make new dict
+dict = dict() # make new dict
+
+dict = { 'a': 1 }
+
+dict[1] # KeyError: 1
+
+dict['a'] # 1
+
+dict['b'] = 2
+dict # { 'a': 1, 'b': 2 }
+
+len(dict) # 2
+
+for x in dict:
+  # All methods below shows same result
+  print('%s : %s' % (x, dict[x])) # first way
+  print('{} : {}'.format(x, dict[x])) # second way
+  print(f'{x} : {dict[x]}') # third way. python3.6+
+# a : 1
+# b : 2
+
+
+'''
+Set
+'''
+
+s = set() # make new Set
+
+s = { 'H', 'E', 'L', 'L', 'O' } # not allow dup
+s # { 'H', 'E', 'L', 'O' }
+s # { 'E', 'L', 'H', 'O' } # Order is not preserved
+
+if 'E' in s:
+  print('E exists in ', s) # 'E exists in { 'H', 'E', 'L', 'O' }
+
+setA = { 1, 2, 3, 4, 5 }
+setB = { 3, 4, 5, 6, 7 }
+
+setA & setB # setA.intersection(setB)
+# {3, 4, 5}
+
+setA | setB # setA.union(setB)
+# { 1, 2, 3, 4, 5, 6, 7 }
+
+setA - setB # setA.difference(setB)
+# { 1, 2 }
+
+setB - setA # setB.difference(setA)
+# { 6, 7 }
+
+arr = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5]
+list(set(arr)) # [1, 2, 3, 4, 5]
+```
+
+## timeit
+measuring performance
+
+`timeit(test function, setup=test setup, number=iteration count)`
+
+```python
+import timeit
+
+iteration_test = """
+for i in itr :
+  pass
+"""
+
+timeit.timeit(iteration_test, setup='itr = list(range(10000))', number=1000)
+# 0.054775722994236276
+
+timeit.timeit(iteration_test, setup='itr = tuple(range(10000))', number=1000)
+# 0.07723709600395523
+
+timeit.timeit(iteration_test, setup='itr = set(range(10000))', number=1000)
+# 0.07349735200114083
+
+
+"""
+Search Test
+"""
+
+search_test = """
+import random
+x = random.randint(0, len(itr)-1)
+if x in itr:
+  pass
+"""
+
+timeit.timeit(search_test, setup='itr = list(range(10000))', number=1000)
+# 0.025486715996521525
+
+timeit.timeit(search_test, setup='itr = tuple(range(10000))', number=1000)
+# 0.023025447997497395
+
+timeit.timeit(search_test, setup='itr = set(range(10000))', number=1000)
+# 0.0006405339954653755
+```
+
+## pandas
+
+### df merge
+
+```python
+import pandas as pd
+
+# a_df 생성
+a_df = pd.DataFrame({
+    'a': ['a', 'b'],
+    'b': [1, 2]
+})
+
+# b_df 생성
+b_df = pd.DataFrame({
+    'a': ['a', 'b'],
+    'c': ['@@', '##'],
+    'd': [10, 20],
+    'e': [30, 40],
+    'f': [50, 60],
+    # ...
+})
+
+# 원하는 컬럼만 선택하여 병합
+selected_columns = ['a', 'c', 'e']  # 'a'는 조인 키로 필요, 'c'와 'e'는 원하는 컬럼
+result_df = pd.merge(a_df, b_df[selected_columns], on='a', how='inner')
+
+# 결과 확인
+print(result_df)
+
+"""
+   a  b   c   e
+0  a  1  @@  30
+1  b  2  ##  40
+"""
+```
+
+### pivot table
+
+```python
+pd.pivot_table(
+    data,              # 피벗할 데이터프레임
+    values,           # 계산할 값이 있는 컬럼
+    index,            # 행 인덱스가 될 컬럼
+    columns,          # 열 인덱스가 될 컬럼
+    aggfunc='mean',   # 집계 함수 (mean, sum, count 등)
+    fill_value=None,  # NaN 대체값
+    margins=False     # 총계 표시 여부
+)
+```
+
+```python
+import pandas as pd
+import numpy as np
+
+# 샘플 데이터 생성
+df = pd.DataFrame({
+    '날짜': ['2024-01', '2024-01', '2024-02', '2024-02'],
+    '지역': ['서울', '부산', '서울', '부산'],
+    '판매량': [100, 150, 200, 250],
+    '수익': [1000, 1500, 2000, 2500]
+})
+
+# 1. 기본 피벗테이블
+result1 = pd.pivot_table(
+    df,
+    values='판매량',
+    index='날짜',
+    columns='지역'
+)
+print("기본 피벗테이블:")
+print(result1)
+# 출력:
+#         지역    서울    부산
+# 날짜                    
+# 2024-01  100   150
+# 2024-02  200   250
+
+# 2. 여러 값과 함수 사용
+result2 = pd.pivot_table(
+    df,
+    values=['판매량', '수익'],
+    index='날짜',
+    columns='지역',
+    aggfunc={
+        '판매량': 'sum',
+        '수익': ['mean', 'sum']
+    }
+)
+print("\n여러 값과 함수 사용:")
+print(result2)
+# 출력:
+#              판매량      수익                    
+# 지역          부산    서울   mean         sum     
+#                          부산    서울    부산    서울
+# 날짜                                                
+# 2024-01     150    100  1500  1000   1500   1000
+# 2024-02     250    200  2500  2000   2500   2000
+```
+
+
+## matplotlib
+
+1. Simple Line Graph
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+
+plt.plot(x, y)
+plt.title('Sin Graph')
+plt.xlabel('X axis')
+plt.ylabel('Y axis')
+plt.show()
+```
+
+2. MultiLine Graph
+
+```python
+x = np.linspace(0, 10, 100)
+y1 = np.sin(x)
+y2 = np.cos(x)
+
+plt.plot(x, y1, label='sin(x)')
+plt.plot(x, y2, label='cos(x)')
+plt.title('Sin and Cos Graphs')
+plt.xlabel('X axis')
+plt.ylabel('Y axis')
+plt.legend()
+plt.show()
+```
+
+## dataframe
+
+```python
+import pandas as pd
+
+# 샘플 데이터 생성
+df = pd.DataFrame({
+    '값': [100, 200, 300]
+}, index=['2024-01', '2024-02', '2024-03'])
+
+print("원본 데이터:")
+print(df)
+# 출력:
+#           값
+# 2024-01  100
+# 2024-02  200
+# 2024-03  300
+
+# names 파라미터를 사용하여 reset_index
+df.reset_index(names=['date'], inplace=True)
+print("\n인덱스 재설정 후:")
+print(df)
+# 출력:
+#       date    값
+# 0  2024-01  100
+# 1  2024-02  200
+# 2  2024-03  300
+
+# 비교: 일반적인 reset_index
+df2 = pd.DataFrame({
+    '값': [100, 200, 300]
+}, index=['2024-01', '2024-02', '2024-03'])
+df2.reset_index(inplace=True)
+print("\n일반 reset_index 결과:")
+print(df2)
+# 출력:
+#      index    값
+# 0  2024-01  100
+# 1  2024-02  200
+# 2  2024-03  300
+```
+
+## pandas iloc
+```python
+import pandas as pd
+
+# 예시 데이터프레임 생성
+df = pd.DataFrame({
+    'name': ['John', 'Jane', 'Bob', 'Alice'],
+    'age': [25, 30, 35, 28],
+    'city': ['NY', 'LA', 'SF', 'CH']
+})
+
+# 1. 단일 행 선택
+first_row = df.iloc[0]  # 첫 번째 행 전체
+# 결과: name: John, age: 25, city: NY
+
+# 2. 단일 값 선택
+value = df.iloc[0, 1]  # 첫 번째 행, 두 번째 열(age)
+# 결과: 25
+
+# 3. 여러 행 선택
+three_rows = df.iloc[0:3]  # 처음 3개 행 선택
+# 결과: John, Jane, Bob의 데이터
+
+# 4. 특정 행과 열 선택
+subset = df.iloc[0:2, 1:3]  # 처음 2개 행의 age와 city 열
+# 결과:
+#    age city
+# 0   25  NY
+# 1   30  LA
+
+# 5. 불연속적인 행/열 선택
+specific = df.iloc[[0, 2], [1, 2]]  # 1번째, 3번째 행의 2,3번째 열
+# 결과:
+#    age city
+# 0   25  NY
+# 2   35  SF
+
+# 6. 음수 인덱스 사용 (뒤에서부터 선택)
+last_row = df.iloc[-1]  # 마지막 행
+# 결과: Alice의 데이터
+
+# 7. 조건과 함께 사용
+young_people = df.iloc[df['age'] < 30]  # 30세 미만인 사람들
+```
+
+주요 특징:
+
+정수 인덱스만 사용 가능 (위치 기반)
+0부터 시작하는 인덱싱
+슬라이싱 가능 (start:end:step)
+음수 인덱스 사용 가능 (뒤에서부터 카운트)
+
+주의사항:
+
+iloc는 위치 기반이므로 라벨이나 불리언 인덱싱은 사용할 수 없습니다
+범위를 벗어난 인덱스를 사용하면 IndexError가 발생합니다
+슬라이싱할 때 end 인덱스는 포함되지 않습니다 (예: 0:3은 0,1,2 포함)
+
+loc와의 차이점:
+
+iloc: 위치 기반 인덱싱 (0, 1, 2, ...)
+loc: 라벨 기반 인덱싱 (실제 인덱스 레이블 사용)
+
+## pandas loc
+
+```python
+import pandas as pd
+
+# 예시 데이터프레임 생성
+df = pd.DataFrame({
+    'name': ['John', 'Jane', 'Bob', 'Alice'],
+    'age': [25, 30, 35, 28],
+    'city': ['NY', 'LA', 'SF', 'CH']
+}, index=['a', 'b', 'c', 'd'])  # 커스텀 인덱스 지정
+
+# 1. 단일 행 선택
+row_a = df.loc['a']  # 인덱스 'a'인 행
+# 결과: name: John, age: 25, city: NY
+
+# 2. 특정 행의 특정 열 선택
+value = df.loc['a', 'age']  # 인덱스 'a'행의 'age' 열
+# 결과: 25
+
+# 3. 여러 행 선택
+subset = df.loc['a':'c']  # 'a'부터 'c'까지의 행
+# 결과: John, Jane, Bob의 데이터
+
+# 4. 특정 행들의 특정 열들 선택
+result = df.loc['a':'b', ['name', 'city']]
+# 결과:
+#    name city
+# a  John  NY
+# b  Jane  LA
+
+# 5. 조건을 사용한 선택
+young = df.loc[df['age'] < 30]  # 30세 미만인 사람들
+# 또는
+sf_residents = df.loc[df['city'] == 'SF']
+
+# 6. 여러 조건 조합
+result = df.loc[(df['age'] > 25) & (df['city'] == 'LA')]
+
+# 7. 새로운 값 할당
+df.loc['a', 'age'] = 26  # 특정 위치의 값 변경
+```
+
+loc의 주요 특징:
+
+실제 인덱스 레이블을 사용
+컬럼명으로 열 선택 가능
+불리언 인덱싱(조건) 사용 가능
+슬라이싱 시 끝 인덱스도 포함됨
+
+iloc과의 주요 차이점:
+
+loc: 레이블 기반 ('a', 'name' 등 실제 이름 사용)
+iloc: 위치 기반 (0, 1, 2 등 숫자 인덱스 사용)
+
+자주 하는 실수를 피하기 위한 팁:
+
+loc 사용 시 실제 존재하는 레이블만 사용 가능
+슬라이싱에서 loc은 끝 인덱스를 포함 (iloc은 미포함)
+조건문 사용 시 괄호 사용에 주의
