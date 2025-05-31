@@ -34,7 +34,7 @@ export default async function RootLayout({ children }) {
             </Head>
             <body>
                 <Layout
-                    banner={banner}
+                    // banner={banner}
                     navbar={navbar}
                     pageMap={await getPageMap()}
                     docsRepositoryBase="https://github.com/sundicide/nextra-react-libraries/tree/main/docs"
