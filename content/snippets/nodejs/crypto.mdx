@@ -1,0 +1,129 @@
+# Node Crypto snippets
+
+Node v12.18 기준 AES-128 encrypt, decrypt code
+
+```javascript
+const crypto = require('crypto');
+
+// 설정
+const ALGORITHM = 'aes-128-cbc';
+const SECRET_KEY = 'abcdefghijklmnop'; // 정확히 16바이트여야 함
+const IV_LENGTH = 16; // AES 블록 크기
+
+// 키가 16바이트가 아닐 경우 해시로 고정 길이 생성
+function getFixedKey(key) {
+  return crypto.createHash('md5').update(key).digest(); // MD5 = 16바이트
+}
+
+// 암호화 함수
+function encrypt(text, key = SECRET_KEY) {
+  try {
+    const fixedKey = getFixedKey(key);
+    const iv = crypto.randomBytes(IV_LENGTH); // 랜덤 IV 생성
+    
+    const cipher = crypto.createCipheriv(ALGORITHM, fixedKey, iv);
+    
+    let encrypted = cipher.update(text, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    
+    // IV + 암호화된 데이터를 함께 반환 (복호화 시 필요)
+    return iv.toString('hex') + ':' + encrypted;
+    
+  } catch (error) {
+    console.error('암호화 실패:', error.message);
+    return null;
+  }
+}
+
+// 복호화 함수
+function decrypt(encryptedData, key = SECRET_KEY) {
+  try {
+    const fixedKey = getFixedKey(key);
+    
+    // IV와 암호화된 데이터 분리
+    const [ivHex, encrypted] = encryptedData.split(':');
+    const iv = Buffer.from(ivHex, 'hex');
+    
+    const decipher = crypto.createDecipheriv(ALGORITHM, fixedKey, iv);
+    
+    let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+    
+    return decrypted;
+    
+  } catch (error) {
+    console.error('복호화 실패:', error.message);
+    return null;
+  }
+}
+
+// 객체 전체를 한번에 암호화/복호화하는 헬퍼 함수들
+const DataCrypto = {
+  // 객체를 JSON 문자열로 변환 후 한번에 암호화
+  encryptObject(obj, key = SECRET_KEY) {
+    try {
+      const jsonString = JSON.stringify(obj);
+      return encrypt(jsonString, key);
+    } catch (error) {
+      console.error('객체 암호화 실패:', error.message);
+      return null;
+    }
+  },
+  
+  // 암호화된 데이터를 복호화 후 객체로 파싱
+  decryptObject(encryptedData, key = SECRET_KEY) {
+    try {
+      const jsonString = decrypt(encryptedData, key);
+      return JSON.parse(jsonString);
+    } catch (error) {
+      console.error('객체 복호화 실패:', error.message);
+      return null;
+    }
+  },
+  
+  // 특정 필드만 암호화 (민감한 정보만)
+  encryptSensitiveFields(userData, sensitiveFields = ['email', 'name', 'company'], key = SECRET_KEY) {
+    const result = { ...userData };
+    
+    // 민감한 필드들을 하나의 객체로 묶어서 암호화
+    const sensitiveData = {};
+    sensitiveFields.forEach(field => {
+      if (userData[field]) {
+        sensitiveData[field] = userData[field];
+        delete result[field]; // 원본에서 제거
+      }
+    });
+    
+    // 민감한 데이터가 있으면 암호화해서 저장
+    if (Object.keys(sensitiveData).length > 0) {
+      result.encryptedData = this.encryptObject(sensitiveData, key);
+    }
+    
+    return result;
+  },
+  
+  // 암호화된 민감한 필드들을 복호화해서 원래 구조로 복원
+  decryptSensitiveFields(encryptedUserData, key = SECRET_KEY) {
+    const result = { ...encryptedUserData };
+    
+    if (result.encryptedData) {
+      const sensitiveData = this.decryptObject(result.encryptedData, key);
+      
+      if (sensitiveData) {
+        // 복호화된 민감한 데이터를 다시 원래 구조로 병합
+        Object.assign(result, sensitiveData);
+      }
+      
+      // 암호화된 데이터 필드 제거
+      delete result.encryptedData;
+    }
+    
+    return result;
+  }
+};
+
+module.exports = {
+  encrypt,
+  decrypt,
+}
+```
