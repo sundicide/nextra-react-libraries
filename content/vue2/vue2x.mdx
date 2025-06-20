@@ -1,0 +1,383 @@
+# Vue2x
+
+- vue2x example.
+- dynamic modal
+
+## Folder Structure
+
+```text
+project-root/
+├── src/
+│   ├── components/
+│   │   ├── modals/
+│   │   │   ├── ConfirmModal.vue
+│   │   ├── GlobalModal.vue
+│   │   └── UserList.vue
+│   ├── store/
+│   │   ├── modules/
+│   │   │   ├── modal.js
+│   │   ├── index.js
+│   └── App.vue
+├── public/
+└── package.json
+```
+
+## App.vue
+
+```vue
+<template>
+  <div id="app">
+    <!-- 메인 앱 컨텐츠 -->
+    <router-view />
+
+    <!-- 글로벌 모달 -->
+    <GlobalModal @modal-submit="handleModalSubmit" />
+  </div>
+</template>
+
+<script>
+import GlobalModal from './components/GlobalModal.vue'
+
+export default {
+  name: 'App',
+
+  components: {
+    GlobalModal
+  },
+
+  methods: {
+    handleModalSubmit(data) {
+      console.log('Modal submitted with data:', data)
+      // 여기서 제출된 데이터를 처리
+    }
+  }
+}
+</script>
+```
+
+## store/index.js
+
+```javascript
+import Vue from 'vue';
+import Vuex from 'vuex';
+import modal from './modules/modal'
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  modules: {
+    modal,
+  }
+})
+
+export default store
+```
+
+
+## store/modules/modal.js
+
+```javascript
+const state = {
+  isOpen: false,
+  component: null,
+  props: {},
+  title: '',
+  size: 'medium' // small, medium, large
+}
+
+const mutations = {
+  OPEN_MODAL(state, { component, props = {}, title = '', size = 'medium' }) {
+    state.isOpen = true
+    state.component = component
+    state.props = props
+    state.title = title
+    state.size = size
+  },
+
+  CLOSE_MODAL(state) {
+    state.isOpen = false
+    state.component = null
+    state.props = {}
+    state.title = ''
+    state.size = 'medium'
+  }
+}
+
+const actions = {
+  openModal({ commit }, payload) {
+    commit('OPEN_MODAL', payload)
+  },
+
+  closeModal({ commit }) {
+    commit('CLOSE_MODAL')
+  }
+}
+
+const getters = {
+  isModalOpen: state => state.isOpen,
+  modalComponent: state => state.component,
+  modalProps: state => state.props,
+  modalTitle: state => state.title,
+  modalSize: state => state.size
+}
+
+export default {
+  namespaced: true,
+  state,
+  mutations,
+  actions,
+  getters
+}
+```
+
+## components/GlobalModal.vue
+
+```vue
+<template>
+  <div v-if="isModalOpen" class="modal-overlay" @click="handleOverlayClick">
+    <div
+      class="modal-container"
+      :class="modalSizeClass"
+      @click.stop
+    >
+      <!-- 모달 헤더 -->
+      <div class="modal-header">
+        <h3 v-if="modalTitle" class="modal-title">{{ modalTitle }}</h3>
+        <button class="modal-close" @click="closeModal">×</button>
+      </div>
+
+      <!-- 동적 컴포넌트 렌더링 -->
+      <div class="modal-body">
+        <component
+          :is="modalComponent"
+          v-bind="modalProps"
+          @close="closeModal"
+          @submit="handleSubmit"
+        />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex'
+
+export default {
+  name: 'GlobalModal',
+
+  computed: {
+    ...mapGetters('modal', [
+      'isModalOpen',
+      'modalComponent',
+      'modalProps',
+      'modalTitle',
+      'modalSize'
+    ]),
+
+    modalSizeClass() {
+      return `modal-${this.modalSize}`
+    }
+  },
+
+  // ESC 키로 모달 닫기
+  mounted() {
+    document.addEventListener('keydown', this.handleEscKey)
+  },
+
+  beforeDestroy() {
+    document.removeEventListener('keydown', this.handleEscKey)
+  },
+
+  methods: {
+    ...mapActions('modal', ['closeModal']),
+
+    handleEscKey(event) {
+      if (event.key === 'Escape' && this.isModalOpen) {
+        this.closeModal()
+      }
+    },
+
+    handleOverlayClick() {
+      this.closeModal()
+    },
+
+    handleSubmit(data) {
+      this.$emit('modal-submit', data)
+      this.closeModal()
+    }
+  }
+}
+</script>
+
+<style scoped>
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-small {
+  width: 400px;
+  max-width: 90vw;
+}
+
+.modal-medium {
+  width: 600px;
+  max-width: 90vw;
+}
+
+.modal-large {
+  width: 800px;
+  max-width: 90vw;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  color: #000;
+}
+
+.modal-body {
+  padding: 24px;
+}
+</style>
+```
+
+## components/UserList.vue
+
+```vue
+<template>
+  <div class="user-list">
+    <h2>사용자 목록</h2>
+
+    <button @click="openConfirmModal" class="btn btn-danger">
+      전체 삭제
+    </button>
+  </div>
+</template>
+
+<script>
+import { mapActions } from 'vuex'
+import ConfirmModal from './modals/ConfirmModal.vue'
+
+export default {
+  name: 'UserList',
+
+  data() {
+    return {
+      users: [
+        { id: 1, name: '김철수', email: 'kim@example.com' },
+        { id: 2, name: '이영희', email: 'lee@example.com' }
+      ]
+    }
+  },
+
+  methods: {
+    ...mapActions('modal', ['openModal']),
+
+    openConfirmModal() {
+      this.openModal({
+        component: ConfirmModal,
+        props: {
+          message: '모든 사용자를 삭제하시겠습니까?',
+          confirmText: '삭제',
+          cancelText: '취소'
+        },
+        title: '삭제 확인',
+        size: 'small'
+      })
+    }
+  }
+}
+</script>
+```
+
+## components/modals/ConfirmModal.vue
+
+```vue
+<template>
+  <div class="confirm-modal">
+    <p>{{ message }}</p>
+    <div class="button-group">
+      <button @click="handleCancel" class="btn btn-secondary">
+        {{ cancelText }}
+      </button>
+      <button @click="handleConfirm" class="btn btn-primary">
+        {{ confirmText }}
+      </button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ConfirmModal',
+
+  props: {
+    message: {
+      type: String,
+      default: '정말로 실행하시겠습니까?'
+    },
+    confirmText: {
+      type: String,
+      default: '확인'
+    },
+    cancelText: {
+      type: String,
+      default: '취소'
+    }
+  },
+
+  methods: {
+    handleConfirm() {
+      this.$emit('submit', { confirmed: true })
+    },
+
+    handleCancel() {
+      this.$emit('close')
+    }
+  }
+}
+</script>
+```
