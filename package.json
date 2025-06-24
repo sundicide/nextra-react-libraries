@@ -2,7 +2,7 @@
   "name": "nextra-react-libraries",
   "version": "2.0.0",
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 5080",
     "build": "next build",
     "start": "next start",
     "deploy:pm2": "pm2 start npm --name nextra-react-libraries -- run dev",
@@ -18,7 +18,8 @@
     "nextra": "^4.2.17",
     "nextra-theme-docs": "^4.2.17",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "sass": "^1.89.2"
   },
   "devDependencies": {
     "pagefind": "^1.3.0"
