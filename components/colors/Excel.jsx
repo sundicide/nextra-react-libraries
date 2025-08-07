@@ -151,11 +151,11 @@ export default function Excel() {
       <Section>
         <SectionHeader bgColor={LIGHT_GRAY.ORIGINAL.HEX} color='black'>Light Gray Colors</SectionHeader>
         <ColorRow item={LIGHT_GRAY.ORIGINAL} type="gray" />
-        <ColorRow item={LIGHT_GRAY.LIGHT_80} type="gray" />
-        <ColorRow item={LIGHT_GRAY.LIGHT_60} type="gray" />
-        <ColorRow item={LIGHT_GRAY.LIGHT_40} type="gray" />
-        <ColorRow item={LIGHT_GRAY.DARK_20} type="gray" />
-        <ColorRow item={LIGHT_GRAY.DARK_40} type="gray" />
+        <ColorRow item={LIGHT_GRAY.DARK_10} type="gray" />
+        <ColorRow item={LIGHT_GRAY.DARK_25} type="gray" />
+        <ColorRow item={LIGHT_GRAY.DARK_50} type="gray" />
+        <ColorRow item={LIGHT_GRAY.DARK_75} type="gray" />
+        <ColorRow item={LIGHT_GRAY.DARK_90} type="gray" />
       </Section>
     </Container>
   )

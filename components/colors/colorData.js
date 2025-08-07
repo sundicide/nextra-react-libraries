@@ -18,11 +18,11 @@ export const BLUES = {
 
 export const LIGHT_GRAY = {
   ORIGINAL: { TEXT: 'ORIGINAL', HEX: '#E7E6E6', HSL: '0deg, 5%, 231%', FONT: 'black', },
-  LIGHT_80: { TEXT: 'LIGHT_80', HEX: '#D0CECE', HSL: '0deg, 5%, 207%', FONT: 'black', },
-  LIGHT_60: { TEXT: 'LIGHT_60', HEX: '#AEAAAA', HSL: '0deg, 6%, 172%', FONT: 'black', },
-  LIGHT_40: { TEXT: 'LIGHT_40', HEX: '#757171', HSL: '0deg, 4%, 115%', FONT: 'white', },
-  DARK_20 : { TEXT: 'BLUE_DARK_20' , HEX: '#3A3838', HSL: '0deg, 4%, 57%', FONT: 'white', },
-  DARK_40 : { TEXT: 'BLUE_DARK_40' , HEX: '#161616', HSL: '170deg, 0%, 22%', FONT: 'white', },
+  DARK_10: { TEXT: 'DARK_10', HEX: '#D0CECE', HSL: '0deg, 5%, 207%', FONT: 'black', },
+  DARK_25: { TEXT: 'DARK_25', HEX: '#AEAAAA', HSL: '0deg, 6%, 172%', FONT: 'black', },
+  DARK_50: { TEXT: 'LIGHT_40', HEX: '#757171', HSL: '0deg, 4%, 115%', FONT: 'white', },
+  DARK_75 : { TEXT: 'BLUE_DARK_20' , HEX: '#3A3838', HSL: '0deg, 4%, 57%', FONT: 'white', },
+  DARK_90 : { TEXT: 'BLUE_DARK_40' , HEX: '#161616', HSL: '170deg, 0%, 22%', FONT: 'white', },
 }
 
 export const ALL_COLORS = {
