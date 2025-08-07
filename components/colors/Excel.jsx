@@ -3,7 +3,7 @@
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 import { useState } from 'react'
-import { BLUES, GOLDS } from './colorData'
+import { BLUES, GOLDS, LIGHT_GRAY } from './colorData'
 
 const Container = styled.div`
   padding: 20px;
@@ -24,8 +24,8 @@ const SectionHeader = styled.div`
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: white;
-  background: ${props => props.color};
+  background: ${props => props.bgColor};
+  color: ${props => props.color ?? 'white' };
 `
 
 const Row = styled.div`
@@ -129,7 +129,7 @@ export default function Excel() {
   return (
     <Container>
       <Section>
-        <SectionHeader color="#4472C4">Blue Colors</SectionHeader>
+        <SectionHeader bgColor="#4472C4">Blue Colors</SectionHeader>
         <ColorRow item={BLUES.ORIGINAL} type="blue" />
         <ColorRow item={BLUES.LIGHT_80} type="blue" />
         <ColorRow item={BLUES.LIGHT_60} type="blue" />
@@ -139,13 +139,23 @@ export default function Excel() {
       </Section>
 
       <Section>
-        <SectionHeader color="#ffc000">Gold Colors</SectionHeader>
+        <SectionHeader bgColor="#ffc000">Gold Colors</SectionHeader>
         <ColorRow item={GOLDS.ORIGINAL} type="gold" />
         <ColorRow item={GOLDS.LIGHT_80} type="gold" />
         <ColorRow item={GOLDS.LIGHT_60} type="gold" />
         <ColorRow item={GOLDS.LIGHT_40} type="gold" />
         <ColorRow item={GOLDS.DARK_20} type="gold" />
         <ColorRow item={GOLDS.DARK_40} type="gold" />
+      </Section>
+
+      <Section>
+        <SectionHeader bgColor={LIGHT_GRAY.ORIGINAL.HEX} color='black'>Light Gray Colors</SectionHeader>
+        <ColorRow item={LIGHT_GRAY.ORIGINAL} type="gray" />
+        <ColorRow item={LIGHT_GRAY.LIGHT_80} type="gray" />
+        <ColorRow item={LIGHT_GRAY.LIGHT_60} type="gray" />
+        <ColorRow item={LIGHT_GRAY.LIGHT_40} type="gray" />
+        <ColorRow item={LIGHT_GRAY.DARK_20} type="gray" />
+        <ColorRow item={LIGHT_GRAY.DARK_40} type="gray" />
       </Section>
     </Container>
   )
